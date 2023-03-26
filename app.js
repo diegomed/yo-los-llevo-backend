@@ -18,7 +18,6 @@ app.get('/tasks', (req, res, next) => {
 app.post('/task', (req, res, next) => {
     try {
         tasks.push(req.body);
-        console.log(tasks);
     }
     catch(err) {
         console.log(err);
