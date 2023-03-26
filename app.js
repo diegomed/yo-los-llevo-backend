@@ -1,30 +1,30 @@
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const app = express();
 
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cors());
 
 const port = 3000;
 
-app.get('/', (req, res) => {
-    const tasks = [
-        { name: 'Diego Medina', description: 'lorem ipsum' },
-        { name: 'Diego Medina', description: 'lorem ipsum' },
-        { name: 'Diego Medina', description: 'lorem ipsum' },
-        { name: 'Diego Medina', description: 'lorem ipsum' },
-        { name: 'Diego Medina', description: 'lorem ipsum' },
-        { name: 'Diego Medina', description: 'lorem ipsum' },
-        { name: 'Diego Medina', description: 'lorem ipsum' },
-        { name: 'Diego Medina', description: 'lorem ipsum' },
-        { name: 'Diego Medina', description: 'lorem ipsum' },
-        { name: 'Diego Medina', description: 'lorem ipsum' },
-        { name: 'Diego Medina', description: 'lorem ipsum' },
-        { name: 'Diego Medina', description: 'lorem ipsum' },
-        { name: 'Diego Medina', description: 'lorem ipsum' },
-        { name: 'Diego Medina', description: 'lorem ipsum' }
-    ]
+const tasks = [];
+
+app.get('/tasks', (req, res, next) => {
     res.send(tasks);
+});
+
+app.post('/task', (req, res, next) => {
+    try {
+        tasks.push(req.body);
+        console.log(tasks);
+    }
+    catch(err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+    res.sendStatus(200);
 });
 
 app.listen(port, () => console.log(`Express app running on port ${port}!`));
