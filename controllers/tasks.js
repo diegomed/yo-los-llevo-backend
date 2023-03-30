@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 const tasks = [];
 
 export const getTasks = (req, res, next) => {
@@ -6,7 +8,8 @@ export const getTasks = (req, res, next) => {
 
 export const postTask = (req, res, next) => {
     try {
-        tasks.push(req.body);
+        const task = {...req.body, id: uuidv4()}
+        tasks.push(task);
     }
     catch(err) {
         res.sendStatus(500);
