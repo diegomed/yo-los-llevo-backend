@@ -14,7 +14,7 @@ export const getTasks = (req, res, next) => {
         date: {
             $gte: generateDateString(today)
         },
-    }, null, { sort: '-date' })
+    }, null, { sort: 'date' })
     .then(tasks => res.status(200).json(tasks))
     .catch(err => res.status(500).send({ error: err }));   
 };
